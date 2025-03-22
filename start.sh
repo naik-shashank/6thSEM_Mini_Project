@@ -1,3 +1,4 @@
 #!/bin/bash
-gunicorn -w 4 -b 0.0.0.0:$PORT -k uvicorn.workers.UvicornWorker main:app
+PORT=${PORT:-10000}
+gunicorn -k uvicorn.workers.UvicornWorker -w 2 -b 0.0.0.0:$PORT --timeout 120 main:app
 
