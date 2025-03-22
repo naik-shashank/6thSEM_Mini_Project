@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: deepfake-detector
+    runtime: python
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.10
