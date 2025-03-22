@@ -155,7 +155,6 @@ tensorflow-estimator==2.15.0
 tensorflow-hub==0.16.1
 tensorflow-io-gcs-filesystem==0.31.0
 tensorflow_decision_forests==1.8.1
-tensorflow_intel==2.18.0
 tensorstore==0.1.69
 termcolor==2.5.0
 terminado==0.18.1
