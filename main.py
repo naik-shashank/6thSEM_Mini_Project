@@ -1,3 +1,5 @@
+import os
+import uvicorn
 from fastapi import FastAPI, File, UploadFile
 import numpy as np
 from tensorflow.keras.models import load_model
@@ -9,7 +11,12 @@ from io import BytesIO
 app = FastAPI()
 
 # Load the trained deepfake detector model
-model = load_model("deepfake_detector.h5")
+model_path = "deepfake_detector.h5"
+
+if os.path.exists(model_path):
+    model = load_model(model_path)
+else:
+    raise RuntimeError(f"Model file '{model_path}' not found.")
 
 def preprocess_image(file):
     """Convert uploaded image into a format suitable for the model"""
@@ -42,3 +49,8 @@ async def predict(file: UploadFile = File(...)):
 
     except Exception as e:
         return {"error": str(e)}
+
+# Ensure correct port binding for Render
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 8000))  # Default to 8000 if not set
+    uvicorn.run(app, host="0.0.0.0", port=port)
